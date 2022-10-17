@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
     }
     void Flipy()
     {
-        
+
         Vector3 Scaler = transform.localScale;
         Scaler.y *= -1;
         transform.localScale = Scaler;
