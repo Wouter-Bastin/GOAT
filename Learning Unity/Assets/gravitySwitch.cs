@@ -18,7 +18,7 @@ public class gravitySwitch : MonoBehaviour
 
     private void Start()
     {
-     
+        Physics.gravity = new Vector2(0, -1);
         
     }
 
@@ -31,19 +31,19 @@ public class gravitySwitch : MonoBehaviour
     {
         if (contactPlayer == true && gravityRight == true)
         {
-            Physics.gravity = new Vector3(1, 0, 0);
+            Physics.gravity = new Vector2(1, 0);
         }
         else if (contactPlayer == true && gravityLeft == true)
         {
-            Physics.gravity = new Vector3(-1, 0, 0);
+            Physics.gravity = new Vector2(-1, 0);
         }
         else if (contactPlayer == true && gravityUp == true)
         {
-            Physics.gravity = new Vector3(0, 1, 0);
+            Physics.gravity = new Vector2(0, 1);
         }
         else if (contactPlayer == true && gravityDown == true)
         {
-            Physics.gravity = new Vector3(0, -1, 0);
+            Physics.gravity = new Vector2(0, -1);
         }
 
     }
