@@ -26,6 +26,7 @@ public class gravitySwitch : MonoBehaviour
     {
         contactPlayer = Physics2D.OverlapCircle(playerCheck.position, checkRadiusSwitch, whatIsPlayer);
         Debug.Log("Gravity is" + Physics.gravity);
+        Debug.Log("contactPlayer is" + contactPlayer);
     }
     
     public void Update()
