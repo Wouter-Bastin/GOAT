@@ -15,6 +15,7 @@ public class gravitySwitch : MonoBehaviour
     public bool gravityLeft;
     public bool gravityUp;
     public bool gravityDown;
+    public float gravityStrength;
 
     public void Start()
     {
@@ -25,26 +26,26 @@ public class gravitySwitch : MonoBehaviour
     public void FixedUpdate()
     {
         contactPlayer = Physics2D.OverlapCircle(playerCheck.position, checkRadiusSwitch, whatIsPlayer);
-        Debug.Log("Gravity is" + Physics.gravity);
+      
     }
     
     public void Update()
     {
         if (contactPlayer == true && gravityRight == true)
         {
-            Physics.gravity = Vector2.right;
+            Physics2D.gravity = Vector2.right * gravityStrength;
         }
         if (contactPlayer == true && gravityLeft == true)
         {
-            Physics.gravity = Vector2.left;
+            Physics2D.gravity = Vector2.left * gravityStrength;
         }
         if (contactPlayer == true && gravityUp == true)
         {
-            Physics.gravity = Vector2.up;
+            Physics2D.gravity = Vector2.up * gravityStrength;
         }
         if (contactPlayer == true && gravityDown == true)
         {
-            Physics.gravity = Vector2.down;
+            Physics2D.gravity = Vector2.down * gravityStrength;
         }
         
     }
