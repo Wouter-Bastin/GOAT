@@ -113,17 +113,23 @@ public class PlayerController : MonoBehaviour
 
         if (Physics2D.gravity == Vector2.right * gravityStrength)
         {
-            Rotate();
+            rb.transform.eulerAngles = new Vector3(0, 0, 90);
+        }
+        if (Physics2D.gravity == Vector2.left * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, -90);
+        }
+        if (Physics2D.gravity == Vector2.up * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, 180);
+        }
+        if (Physics2D.gravity == Vector2.down * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
 
-    void Rotate()
-    {
-
-        rb.transform.eulerAngles = new Vector3(0, 0, 90);
-    }
-
-
+ 
     void Flipx()
     {
         facingRight = !facingRight;
