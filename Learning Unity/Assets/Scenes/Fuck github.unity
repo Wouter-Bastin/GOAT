@@ -1068,7 +1068,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  gravityStrength: 10
+  gravityStrength: 20
 --- !u!1 &1221850450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   gravityLeft: 0
   gravityUp: 0
   gravityDown: 0
-  gravityStrength: 10
+  gravityStrength: 20
 --- !u!1 &1470284858
 GameObject:
   m_ObjectHideFlags: 0

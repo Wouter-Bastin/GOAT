@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private bool facingRight = true;
-    private bool facingUp = true;
 
     private bool isGroundedBottom;
     private bool isGroundedTop;
@@ -28,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         
         rb = GetComponent<Rigidbody2D>();
-        rb.drag = 0;
+        rb.drag = 3;
         Physics2D.gravity = Vector2.down * gravityStrength;
     }
     private void FixedUpdate()
@@ -99,17 +98,7 @@ public class PlayerController : MonoBehaviour
         else if (facingRight == true && moveInputHorizontal < 0)
         {
             Flipx();
-        }
-        else if (facingUp == false && isGroundedBottom == true)
-        {
-            Flipy();
-        }
-        else if (facingUp == true && isGroundedTop == true)
-        {
-            Flipy();
-        }
-
-        
+        }       
 
     }
 
@@ -142,13 +131,7 @@ public class PlayerController : MonoBehaviour
         Scaler.x *= -1;
         transform.localScale = Scaler;
     }
-    void Flipy()
-    {
 
-        Vector3 Scaler = transform.localScale;
-        Scaler.y *= -1;
-        transform.localScale = Scaler;
-    }
    
 
 }

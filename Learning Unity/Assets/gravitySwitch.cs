@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class gravitySwitch : MonoBehaviour
 {
-    
+
     public LayerMask whatIsPlayer;
     private bool contactPlayer;
     public Transform playerCheck;
@@ -19,20 +19,20 @@ public class gravitySwitch : MonoBehaviour
 
     public void Start()
     {
-       
-        
+
+
     }
 
     public void FixedUpdate()
     {
         contactPlayer = Physics2D.OverlapCircle(playerCheck.position, checkRadiusSwitch, whatIsPlayer);
-      
     }
-    
+
     public void Update()
     {
         if (contactPlayer == true && gravityRight == true)
         {
+
             Physics2D.gravity = Vector2.right * gravityStrength;
         }
         if (contactPlayer == true && gravityLeft == true)
@@ -46,7 +46,8 @@ public class gravitySwitch : MonoBehaviour
         if (contactPlayer == true && gravityDown == true)
         {
             Physics2D.gravity = Vector2.down * gravityStrength;
+
         }
-        
+
     }
 }
