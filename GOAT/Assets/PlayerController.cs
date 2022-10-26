@@ -8,16 +8,13 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed;
     public float JumpForce;
     public float moveInputHorizontal;
-    public float moveInputVertical;
 
     private Rigidbody2D rb;
 
     private bool facingRight = true;
 
     private bool isGroundedBottom;
-    private bool isGroundedTop;
     public Transform groundCheck1;
-    public Transform groundCheck2;
     public float checkRadius;
     public LayerMask whatIsGround;
 
@@ -34,8 +31,8 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        Debug.Log(isGroundedBottom);
         isGroundedBottom = Physics2D.OverlapCircle(groundCheck1.position, checkRadius, whatIsGround);
-        isGroundedTop = Physics2D.OverlapCircle(groundCheck2.position, checkRadius, whatIsGround);
 
         moveInputHorizontal = Input.GetAxisRaw("Horizontal");
 
@@ -108,7 +105,7 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && (isGroundedTop || isGroundedBottom))
+        if (Input.GetKeyDown(KeyCode.Space) && (isGroundedBottom))
         {
             Physics2D.gravity *= -1;
         }
