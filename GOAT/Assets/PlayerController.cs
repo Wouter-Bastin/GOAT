@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public float maxSpeed;
     public float JumpForce;
     public float moveInputHorizontal;
     public float moveInputVertical;
@@ -12,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private bool facingRight = true;
-    private bool facingUp = true;
 
     private bool isGroundedBottom;
     private bool isGroundedTop;
@@ -21,13 +21,16 @@ public class PlayerController : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
 
-    private int extraJumps;
-    public int extraJumpsValue;
+    public float gravityStrength;
+    public float Drag;
+
 
     private void Start()
     {
-        extraJumps = extraJumpsValue;
+        
         rb = GetComponent<Rigidbody2D>();
+        rb.drag = Drag;
+        Physics2D.gravity = Vector2.down * gravityStrength;
     }
     private void FixedUpdate()
     {
@@ -35,7 +38,60 @@ public class PlayerController : MonoBehaviour
         isGroundedTop = Physics2D.OverlapCircle(groundCheck2.position, checkRadius, whatIsGround);
 
         moveInputHorizontal = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInputHorizontal * speed, rb.velocity.y);
+
+        if (Physics2D.gravity == Vector2.down * gravityStrength)
+        {
+            if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
+            {
+                rb.velocity = new Vector2(moveInputHorizontal * speed + rb.velocity.x, rb.velocity.y);
+            }
+
+            else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
+            {
+                rb.velocity = new Vector2(maxSpeed * moveInputHorizontal, rb.velocity.y);
+            }
+        }
+
+        else if (Physics2D.gravity == Vector2.up * gravityStrength)
+        {
+            if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
+            {
+                rb.velocity = new Vector2((moveInputHorizontal * speed)* -1 + rb.velocity.x, rb.velocity.y);
+            }
+
+            else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
+            {
+                rb.velocity = new Vector2(maxSpeed * moveInputHorizontal * -1, rb.velocity.y);
+            }
+        }
+
+        else if (Physics2D.gravity == Vector2.right * gravityStrength)
+        {
+            if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, moveInputHorizontal * speed + rb.velocity.y);
+            }
+
+            else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, maxSpeed * moveInputHorizontal);
+            }
+        }
+
+        else if (Physics2D.gravity == Vector2.left * gravityStrength)
+        {
+            if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, (moveInputHorizontal * speed)* -1 + rb.velocity.y);
+            }
+
+            else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, (maxSpeed * moveInputHorizontal)* -1);
+            }
+        }
+
+
 
         if (facingRight == false && moveInputHorizontal > 0)
         {
@@ -44,50 +100,38 @@ public class PlayerController : MonoBehaviour
         else if (facingRight == true && moveInputHorizontal < 0)
         {
             Flipx();
-        }
-        else if(facingUp == false && isGroundedBottom == true)
-        {
-            Flipy();
-        }
-        else if(facingUp == true && isGroundedTop == true)
-        {
-            Flipy();
-        }
+        }       
+
     }
 
     private void Update()
     {
-        if(isGroundedBottom == true || isGroundedTop == true)
-        {
-            extraJumps = extraJumpsValue;
-        }
 
-        if(Input.GetKeyDown(KeyCode.UpArrow) && extraJumps > 0)
-        {
-            rb.velocity = Vector2.up * JumpForce;
-            extraJumps--;
-        } 
-        else if (Input.GetKeyDown(KeyCode.UpArrow) && extraJumps == 0 && (isGroundedBottom || isGroundedTop))
-        {
-            rb.velocity = Vector2.up * JumpForce;
-        }
-        if (Input.GetKeyDown(KeyCode.W) && extraJumps > 0)
-        {
-            rb.velocity = Vector2.up * JumpForce;
-            extraJumps--;
-        }
-        else if (Input.GetKeyDown(KeyCode.W) && extraJumps == 0 && (isGroundedBottom || isGroundedTop))
-        {
-            rb.velocity = Vector2.up * JumpForce;
-        }
-       
+
         if (Input.GetKeyDown(KeyCode.Space) && (isGroundedTop || isGroundedBottom))
         {
-            rb.gravityScale *= -1;
+            Physics2D.gravity *= -1;
+        }
+
+        if (Physics2D.gravity == Vector2.right * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, 90);
+        }
+        if (Physics2D.gravity == Vector2.left * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, -90);
+        }
+        if (Physics2D.gravity == Vector2.up * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, 180);
+        }
+        if (Physics2D.gravity == Vector2.down * gravityStrength)
+        {
+            rb.transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
 
-
+ 
     void Flipx()
     {
         facingRight = !facingRight;
@@ -95,12 +139,7 @@ public class PlayerController : MonoBehaviour
         Scaler.x *= -1;
         transform.localScale = Scaler;
     }
-    void Flipy()
-    {
 
-        Vector3 Scaler = transform.localScale;
-        Scaler.y *= -1;
-        transform.localScale = Scaler;
-    }
    
+
 }
