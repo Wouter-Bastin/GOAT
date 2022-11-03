@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         if (isGroundedBottom)
         {
             rb.drag = Drag + XtraDragGround;
-            speed = speedGround; 
+            speed = speedGround;
         }
         else
         {
@@ -76,15 +76,24 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
-        if (facingRight == false && moveInputHorizontal > 0)
+
+        if (facingRight == false && moveInputHorizontal > 0 && ((Physics2D.gravity == Vector2.right * gravityStrength) || (Physics2D.gravity == Vector2.down * gravityStrength)))
         {
             Flipx();
         }
-        else if (facingRight == true && moveInputHorizontal < 0)
+        else if (facingRight == true && moveInputHorizontal < 0 && ((Physics2D.gravity == Vector2.right * gravityStrength) || (Physics2D.gravity == Vector2.down * gravityStrength)))
         {
             Flipx();
-        }       
+        }
+        else if (facingRight == true && moveInputHorizontal > 0 && ((Physics2D.gravity == Vector2.left * gravityStrength) || (Physics2D.gravity == Vector2.up * gravityStrength)))
+        {
+            Flipx();
+        }
+        else if (facingRight == false && moveInputHorizontal < 0 && ((Physics2D.gravity == Vector2.left * gravityStrength) || (Physics2D.gravity == Vector2.up * gravityStrength)))
+        {
+            Flipx();
+        }
+
 
     }
 

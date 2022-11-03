@@ -181,12 +181,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedGround: 5
-  speedAir: 1
+  speedAir: 2
   maxSpeed: 20
   JumpForce: 0
   moveInputHorizontal: 0
   groundCheck1: {fileID: 8076182368970788629}
-  checkRadius: 0.5
+  checkRadius: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
