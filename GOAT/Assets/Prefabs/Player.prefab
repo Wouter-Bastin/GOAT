@@ -151,7 +151,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8357996075948330968}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f77a5c2fdc5b59d499026a59eadd8cfb, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -180,17 +180,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be724bae3f19ce94d8714d6b25c63352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  maxSpeed: 12
+  speedGround: 5
+  speedAir: 1
+  maxSpeed: 20
   JumpForce: 0
   moveInputHorizontal: 0
   groundCheck1: {fileID: 8076182368970788629}
-  checkRadius: 1
+  checkRadius: 0.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
-  gravityStrength: 80
-  Drag: 6
+  gravityStrength: 100
+  Drag: 5.2
+  XtraDragGround: 18
 --- !u!95 &8357996076738239629
 Animator:
   serializedVersion: 4
