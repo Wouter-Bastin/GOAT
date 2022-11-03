@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    public float speedGround;
+    public float speedAir;
+    private float speed;
     public float maxSpeed;
     public float JumpForce;
     public float moveInputHorizontal;
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private bool facingRight = true;
+    
 
     private bool isGroundedBottom;
     public Transform groundCheck1;
@@ -37,10 +40,12 @@ public class PlayerController : MonoBehaviour
         if (isGroundedBottom)
         {
             rb.drag = Drag + XtraDragGround;
+            speed = speedGround; 
         }
         else
         {
             rb.drag = Drag;
+            speed = speedAir;
         }
 
         moveInputHorizontal = Input.GetAxisRaw("Horizontal");
@@ -54,11 +59,11 @@ public class PlayerController : MonoBehaviour
 
             else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
             {
-                rb.velocity = new Vector2(maxSpeed * moveInputHorizontal, rb.velocity.y);
+                rb.velocity = new Vector2(moveInputHorizontal * maxSpeed, rb.velocity.y);
             }
         }
 
-        else if (Physics2D.gravity == Vector2.right * gravityStrength)
+        else if (Physics2D.gravity == Vector2.right * gravityStrength || Physics2D.gravity == Vector2.left * gravityStrength)
         {
             if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
             {
@@ -67,25 +72,11 @@ public class PlayerController : MonoBehaviour
 
             else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
             {
-                rb.velocity = new Vector2(rb.velocity.x, maxSpeed * moveInputHorizontal);
+                rb.velocity = new Vector2(rb.velocity.x, moveInputHorizontal * maxSpeed);
             }
         }
 
-        else if (Physics2D.gravity == Vector2.left * gravityStrength)
-        {
-            if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, (moveInputHorizontal * speed)* -1 + rb.velocity.y);
-            }
-
-            else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, (maxSpeed * moveInputHorizontal)* -1);
-            }
-        }
-
-
-
+        
         if (facingRight == false && moveInputHorizontal > 0)
         {
             Flipx();
