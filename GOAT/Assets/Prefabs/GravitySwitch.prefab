@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1229348480206322025}
   - component: {fileID: 6961199015779728371}
   - component: {fileID: 1097597314574065056}
+  - component: {fileID: 7899604842552421435}
   m_Layer: 0
   m_Name: GravitySwitch
   m_TagString: Untagged
@@ -139,3 +140,23 @@ MonoBehaviour:
   gravityUp: 0
   gravityDown: 0
   gravityStrength: 80
+--- !u!95 &7899604842552421435
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498226806020074237}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bff7f293e233a7640b6806296c8caa34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

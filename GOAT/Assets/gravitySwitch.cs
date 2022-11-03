@@ -16,10 +16,11 @@ public class gravitySwitch : MonoBehaviour
     public bool gravityUp;
     public bool gravityDown;
     public float gravityStrength;
+    private Animator anim;
 
     public void Start()
     {
-
+        anim = GetComponent<Animator>();
 
     }
 
@@ -32,21 +33,23 @@ public class gravitySwitch : MonoBehaviour
     {
         if (contactPlayer == true && gravityRight == true)
         {
-
+            anim.SetTrigger("switchHit");
             Physics2D.gravity = Vector2.right * gravityStrength;
         }
         if (contactPlayer == true && gravityLeft == true)
         {
+            anim.SetTrigger("switchHit");
             Physics2D.gravity = Vector2.left * gravityStrength;
         }
         if (contactPlayer == true && gravityUp == true)
         {
+            anim.SetTrigger("switchHit");
             Physics2D.gravity = Vector2.up * gravityStrength;
         }
         if (contactPlayer == true && gravityDown == true)
         {
+            anim.SetTrigger("switchHit");
             Physics2D.gravity = Vector2.down * gravityStrength;
-
         }
 
     }
