@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed;
     public float JumpForce;
     public float moveInputHorizontal;
+    private Animator anim;
 
     private Rigidbody2D rb;
 
@@ -28,8 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         rb.drag = Drag;
         Physics2D.gravity = Vector2.down * gravityStrength;
     }
@@ -41,11 +42,13 @@ public class PlayerController : MonoBehaviour
         {
             rb.drag = Drag + XtraDragGround;
             speed = speedGround;
+            anim.SetBool("falling", false);
         }
         else
         {
             rb.drag = Drag;
             speed = speedAir;
+            anim.SetBool("falling", true);
         }
 
         moveInputHorizontal = Input.GetAxisRaw("Horizontal");
