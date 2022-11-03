@@ -53,6 +53,16 @@ public class PlayerController : MonoBehaviour
 
         moveInputHorizontal = Input.GetAxisRaw("Horizontal");
 
+        if((moveInputHorizontal != 0) && isGroundedBottom)
+        {
+            anim.SetBool("running", true);
+        }
+
+        else
+        {
+            anim.SetBool("running", false);
+        }
+
         if (Physics2D.gravity == Vector2.down * gravityStrength || Physics2D.gravity == Vector2.up * gravityStrength)
         {
             if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
