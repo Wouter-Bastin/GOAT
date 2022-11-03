@@ -138,4 +138,4 @@ MonoBehaviour:
   gravityLeft: 0
   gravityUp: 0
   gravityDown: 0
-  gravityStrength: 80
+  gravityStrength: 100

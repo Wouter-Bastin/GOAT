@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public float gravityStrength;
     public float Drag;
+    public float XtraDragGround;
 
 
     private void Start()
@@ -31,12 +32,20 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log(isGroundedBottom);
         isGroundedBottom = Physics2D.OverlapCircle(groundCheck1.position, checkRadius, whatIsGround);
+
+        if (isGroundedBottom)
+        {
+            rb.drag = Drag + XtraDragGround;
+        }
+        else
+        {
+            rb.drag = Drag;
+        }
 
         moveInputHorizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Physics2D.gravity == Vector2.down * gravityStrength)
+        if (Physics2D.gravity == Vector2.down * gravityStrength || Physics2D.gravity == Vector2.up * gravityStrength)
         {
             if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
             {
@@ -46,19 +55,6 @@ public class PlayerController : MonoBehaviour
             else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
             {
                 rb.velocity = new Vector2(maxSpeed * moveInputHorizontal, rb.velocity.y);
-            }
-        }
-
-        else if (Physics2D.gravity == Vector2.up * gravityStrength)
-        {
-            if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) < maxSpeed)
-            {
-                rb.velocity = new Vector2((moveInputHorizontal * speed)* -1 + rb.velocity.x, rb.velocity.y);
-            }
-
-            else if (Mathf.Abs(moveInputHorizontal * speed) + Mathf.Abs(rb.velocity.y) >= maxSpeed)
-            {
-                rb.velocity = new Vector2(maxSpeed * moveInputHorizontal * -1, rb.velocity.y);
             }
         }
 

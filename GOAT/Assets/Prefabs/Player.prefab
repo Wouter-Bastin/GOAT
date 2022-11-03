@@ -180,8 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be724bae3f19ce94d8714d6b25c63352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  maxSpeed: 12
+  speed: 6
+  maxSpeed: 14
   JumpForce: 0
   moveInputHorizontal: 0
   groundCheck1: {fileID: 8076182368970788629}
@@ -189,8 +189,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
-  gravityStrength: 80
-  Drag: 6
+  gravityStrength: 100
+  Drag: 2
+  XtraDragGround: 18
 --- !u!95 &8357996076738239629
 Animator:
   serializedVersion: 4
